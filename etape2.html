@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Étape 2 · La place du village</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar" data-topbar></div>
+<main class="page">
+<article class="parchment game">
+
+<details class="map-box">
+  <summary>🗺️ Voir la carte du parcours</summary>
+  <img src="carte-parcours.jpg" alt="Carte du parcours dans Soulomès" class="map-img">
+  <p class="map-help">Les numéros indiquent les étapes du jeu. En cas de doute, repère-toi avec la place du village, la mairie, la mare du Cloup, la route de Théron, la Commanderie puis l’église Sainte-Marie-Madeleine.</p>
+</details>
+
+<div class="step-layout">
+  <div>
+
+  <div class="kicker">Étape 2 · La place du village</div>
+  <h2>Observe bien la place</h2>
+  <p class="story">Avant de poursuivre ton chemin, prends le temps d’observer le cœur du village. Trois bonnes réponses te permettront de gagner la lettre suivante.</p>
+
+  <form id="quiz">
+    <fieldset><legend>1. Combien de rues rejoignent la place ?</legend>
+      <label class="choice"><input type="radio" name="q1" value="2"> 2</label>
+      <label class="choice"><input type="radio" name="q1" value="4"> 4</label>
+      <label class="choice"><input type="radio" name="q1" value="6"> 6</label>
+    </fieldset>
+    <fieldset><legend>2. Quel est le bâtiment le plus ancien visible sur la place ?</legend>
+      <label class="choice"><input type="radio" name="q2" value="mairie"> La mairie</label>
+      <label class="choice"><input type="radio" name="q2" value="eglise"> L’église</label>
+      <label class="choice"><input type="radio" name="q2" value="commanderie"> La commanderie</label>
+    </fieldset>
+    <fieldset><legend>3. Quel monument domine le village ?</legend>
+      <label class="choice"><input type="radio" name="q3" value="grange"> La Grange du Causse</label>
+      <label class="choice"><input type="radio" name="q3" value="chateau"> Le château de Soulomès</label>
+      <label class="choice"><input type="radio" name="q3" value="commanderie"> La commanderie</label>
+    </fieldset>
+    <div class="actions"><button class="btn" type="submit">Valider mes réponses</button></div>
+  </form>
+
+  <div id="success" class="message">
+    <p>Bravo ! Tu connais déjà mieux le cœur du village.</p>
+    <div class="letter-award">H</div>
+    <p class="path-note">Tu remportes la deuxième lettre du mot mystère.</p>
+    <p><strong>Pour continuer :</strong> dirige-toi vers la petite mare du Cloup, à environ 300 mètres de la mairie, et cherche le QR code de l’étape 3.</p>
+  </div>
+  <div id="error" class="message"><p>Ymelin pense qu’une réponse est à revoir. Observe encore et réessaie.</p></div>
+
+  </div>
+  <aside>
+    <img src="ymelin.png" alt="Ymelin, petit guide de Soulomès" class="ymelin-step">
+    <div class="ymelin-caption">Ymelin te guide</div>
+  </aside>
+</div>
+</article>
+</main>
+<script src="app.js"></script>
+
+<script>
+document.querySelectorAll(".choice input").forEach(input=>{
+  input.addEventListener("change",()=>{
+    document.querySelectorAll(`input[name="${input.name}"]`).forEach(i=>i.closest(".choice").classList.remove("selected"));
+    input.closest(".choice").classList.add("selected");
+  });
+});
+document.getElementById("quiz").addEventListener("submit",e=>{
+  e.preventDefault();
+  document.getElementById("error").classList.remove("show");
+  const f=new FormData(e.target);
+  if(f.get("q1")==="4"&&f.get("q2")==="eglise"&&f.get("q3")==="commanderie") reveal("success", 2);
+  else reveal("error");
+});
+if(solvedSteps().includes(2)) reveal("success");
+</script>
+
+</body>
+</html>
