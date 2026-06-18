@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Étape 3 · La mare du Cloup</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="topbar" data-topbar></div>
+<main class="page">
+<article class="parchment game">
+  <div class="kicker">Étape 3 · La mare du Cloup</div>
+  <h2>Les moulins du paysage</h2>
+  <p class="story">En allant vers la mare du Cloup, lève les yeux vers le paysage. Deux anciens moulins à vent peuvent être observés : l’un en ruine et l’autre restauré.</p>
+
+  <form id="quiz">
+    <fieldset><legend>1. Combien de moulins peut-on observer ?</legend>
+      <label class="choice"><input type="radio" name="q1" value="1"> 1</label>
+      <label class="choice"><input type="radio" name="q1" value="2"> 2</label>
+      <label class="choice"><input type="radio" name="q1" value="3"> 3</label>
+    </fieldset>
+    <fieldset><legend>2. À quoi servaient ces moulins à vent ?</legend>
+      <label class="choice"><input type="radio" name="q2" value="surveiller"> À surveiller les routes</label>
+      <label class="choice"><input type="radio" name="q2" value="moudre"> À moudre les céréales</label>
+      <label class="choice"><input type="radio" name="q2" value="eau"> À stocker l’eau</label>
+    </fieldset>
+    <div class="actions"><button class="btn" type="submit">Valider mes réponses</button></div>
+  </form>
+
+  <div id="success" class="message">
+    <p>Exact ! Ces moulins rappellent l’importance des céréales dans la vie quotidienne. Grâce à la force du vent, ils permettaient de transformer le grain en farine.</p>
+    <div class="letter-award">E</div>
+    <p class="path-note">Tu remportes la troisième lettre du mot mystère.</p>
+    <p><strong>Pour continuer :</strong> retourne vers la mairie et cherche le QR code de l’étape 4.</p>
+  </div>
+  <div id="error" class="message"><p>Ce n’est pas encore cela. Regarde de nouveau le paysage et relis bien les propositions.</p></div>
+</article>
+</main>
+<script src="app.js"></script>
+<script>
+document.querySelectorAll(".choice input").forEach(input=>{
+  input.addEventListener("change",()=>{
+    document.querySelectorAll(`input[name="${input.name}"]`).forEach(i=>i.closest(".choice").classList.remove("selected"));
+    input.closest(".choice").classList.add("selected");
+  });
+});
+document.getElementById("quiz").addEventListener("submit",e=>{
+  e.preventDefault();
+  document.getElementById("error").classList.remove("show");
+  const f=new FormData(e.target);
+  if(f.get("q1")==="2"&&f.get("q2")==="moudre") reveal("success", 3);
+  else reveal("error");
+});
+if(solvedSteps().includes(3)) reveal("success");
+</script>
+</body>
+</html>
