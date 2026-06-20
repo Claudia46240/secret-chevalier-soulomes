@@ -1,4 +1,3 @@
-
 const QUEST="CHEVALIER";
 function solvedSteps(){try{return JSON.parse(localStorage.getItem("soulomes_solved")||"[]")}catch(e){return[]}}
 function saveSolved(step){const solved=solvedSteps();if(!solved.includes(step)){solved.push(step);solved.sort((a,b)=>a-b);localStorage.setItem("soulomes_solved",JSON.stringify(solved))}renderCommon()}

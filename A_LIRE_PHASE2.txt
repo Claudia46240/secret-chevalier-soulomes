@@ -1,0 +1,1 @@
+Dépose ces fichiers à la racine du dépôt GitHub. Tu n'as rien à supprimer : style.css et app.js seront remplacés, les pages etape4 à etape9 et fin.html seront ajoutées.
